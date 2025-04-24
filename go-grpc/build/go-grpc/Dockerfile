@@ -5,6 +5,7 @@ WORKDIR ${HOME}
 
 RUN apk update && apk add git
 
+ADD .air.toml ${HOME}/.air.toml
 ADD go.mod ${HOME}/go.mod
 ADD ./api ${HOME}/api
 ADD "./cmd" "${HOME}/cmd/"
@@ -17,6 +18,6 @@ FROM builder AS development
 ENV HOME=/go/src/app
 WORKDIR ${HOME}
 
-COPY --from=builder ${HOME} ${HOME}
+RUN go install github.com/air-verse/air@latest
 
-CMD go run ${HOME}/cmd/go-grpc/main.go
+CMD ["air", "-c", ".air.toml"]
