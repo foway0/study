@@ -35,6 +35,12 @@ go mod download
 SERVICE_PORT=8080 go run cmd/go-grpc/main.go
 ```
 
+## RUN by docker
+
+```bash
+make dressup
+````
+
 ## Generate Go code from .proto files
 
 protoc --go_out=./api --go_opt=paths=source_relative \

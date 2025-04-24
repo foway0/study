@@ -15,6 +15,7 @@ func Boot() {
 	log.Println("Starting gRPC server...")
 	_config := GetConfig()
 
+	log.Println("Service Port: ", _config.Port)
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%s", _config.Port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
