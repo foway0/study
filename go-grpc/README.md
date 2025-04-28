@@ -52,5 +52,10 @@ protoc --go_out=./api --go_opt=paths=source_relative \
 ```bash
 # Test the server using grpcurl
 grpcurl -plaintext localhost:8080 list
-grpcurl -plaintext localhost:8080 api.Ping/Ping
+grpcurl -plaintext localhost:8080 api.Ping.Ping
+grpcurl -plaintext -d '{"title": "title", "body": "body"}' localhost:8080 api.TodoService.CreateTodo
+grpcurl -plaintext -d '{"size": 10, "page": 1}' localhost:8080 api.TodoService.ListTodos
+grpcurl -plaintext -d '{"id": 1}' localhost:8080 api.TodoService.GetTodoById
+grpcurl -plaintext -d '{"id": 1, "title": "title", "body": "body", "status": 2}' localhost:8080 api.TodoService.UpdateTodo
+grpcurl -plaintext -d '{"id": 1}' localhost:8080 api.TodoService.DeleteTodo
 ```

@@ -15,14 +15,15 @@ func Boot() {
 	log.Println("Starting gRPC server...")
 	_config := GetConfig()
 
-	log.Println("Service Port: ", _config.Port)
-	listen, err := net.Listen("tcp", fmt.Sprintf(":%s", _config.Port))
+	log.Println("Service Port: ", _config.port)
+	listen, err := net.Listen("tcp", fmt.Sprintf(":%s", _config.port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
 	server := grpc.NewServer()
 	api.RegisterPingServer(server, &controller.PingServer{})
+	api.RegisterTodoServiceServer(server, &controller.TodoServer{})
 
 	reflection.Register(server)
 

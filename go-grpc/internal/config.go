@@ -6,7 +6,7 @@ import (
 )
 
 type Config struct {
-	Port string
+	port string
 }
 
 var config *Config
@@ -21,7 +21,7 @@ func GetConfig() *Config {
 
 	// switch service mode if needed
 	config = &Config{
-		Port: os.Getenv("SERVICE_PORT"),
+		port: os.Getenv("SERVICE_PORT"),
 	}
 
 	return config
