@@ -12,3 +12,23 @@ services:
       - ../internal:/go/src/app/internal
     environment:
       - SERVICE_PORT=8080
+    depends_on:
+      - go-grpc-mysql
+
+  go-grpc-mysql:
+    image: mysql:9.3
+    hostname: my-mysql
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=my_database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+
+networks:
+  default:
+    name: my_network
+    external: true
