@@ -5,10 +5,10 @@ option go_package = "./;api";
 import "google/protobuf/empty.proto";
 
 service TodoService {
-  rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse);
+  rpc CreateTodo(CreateTodoRequest) returns (google.protobuf.Empty);
   rpc ListTodos(ListTodosRequest) returns (ListTodosResponse);
   rpc GetTodoById(GetTodoByIdRequest) returns (GetTodoByIdResponse);
-  rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse);
+  rpc UpdateTodo(UpdateTodoRequest) returns (google.protobuf.Empty);
   rpc DeleteTodo(DeleteTodoRequest) returns (google.protobuf.Empty);
 }
 
@@ -33,10 +33,6 @@ message CreateTodoRequest {
   string body = 2; // [optional] Todoの内容
 }
 
-message CreateTodoResponse {
-  Todo todo = 1; // [required] 作成されたTodo
-}
-
 message ListTodosRequest {
   uint64 page = 1; // [optional] ページ番号
   uint64 size = 2; // [optional] 1ページあたりのTodoの数
@@ -59,10 +55,6 @@ message UpdateTodoRequest {
   string title = 2; // [required] Todoのタイトル
   string body = 3; // [optional] Todoの内容
   TodoStatus status = 4; // [optional] Todoの状態
-}
-
-message UpdateTodoResponse {
-  Todo todo = 1; // [required] 更新されたTodo
 }
 
 message DeleteTodoRequest {

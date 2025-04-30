@@ -31,10 +31,10 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TodoServiceClient interface {
-	CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*CreateTodoResponse, error)
+	CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	ListTodos(ctx context.Context, in *ListTodosRequest, opts ...grpc.CallOption) (*ListTodosResponse, error)
 	GetTodoById(ctx context.Context, in *GetTodoByIdRequest, opts ...grpc.CallOption) (*GetTodoByIdResponse, error)
-	UpdateTodo(ctx context.Context, in *UpdateTodoRequest, opts ...grpc.CallOption) (*UpdateTodoResponse, error)
+	UpdateTodo(ctx context.Context, in *UpdateTodoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteTodo(ctx context.Context, in *DeleteTodoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -46,9 +46,9 @@ func NewTodoServiceClient(cc grpc.ClientConnInterface) TodoServiceClient {
 	return &todoServiceClient{cc}
 }
 
-func (c *todoServiceClient) CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*CreateTodoResponse, error) {
+func (c *todoServiceClient) CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateTodoResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, TodoService_CreateTodo_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -76,9 +76,9 @@ func (c *todoServiceClient) GetTodoById(ctx context.Context, in *GetTodoByIdRequ
 	return out, nil
 }
 
-func (c *todoServiceClient) UpdateTodo(ctx context.Context, in *UpdateTodoRequest, opts ...grpc.CallOption) (*UpdateTodoResponse, error) {
+func (c *todoServiceClient) UpdateTodo(ctx context.Context, in *UpdateTodoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateTodoResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, TodoService_UpdateTodo_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -100,10 +100,10 @@ func (c *todoServiceClient) DeleteTodo(ctx context.Context, in *DeleteTodoReques
 // All implementations must embed UnimplementedTodoServiceServer
 // for forward compatibility.
 type TodoServiceServer interface {
-	CreateTodo(context.Context, *CreateTodoRequest) (*CreateTodoResponse, error)
+	CreateTodo(context.Context, *CreateTodoRequest) (*emptypb.Empty, error)
 	ListTodos(context.Context, *ListTodosRequest) (*ListTodosResponse, error)
 	GetTodoById(context.Context, *GetTodoByIdRequest) (*GetTodoByIdResponse, error)
-	UpdateTodo(context.Context, *UpdateTodoRequest) (*UpdateTodoResponse, error)
+	UpdateTodo(context.Context, *UpdateTodoRequest) (*emptypb.Empty, error)
 	DeleteTodo(context.Context, *DeleteTodoRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedTodoServiceServer()
 }
@@ -115,7 +115,7 @@ type TodoServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTodoServiceServer struct{}
 
-func (UnimplementedTodoServiceServer) CreateTodo(context.Context, *CreateTodoRequest) (*CreateTodoResponse, error) {
+func (UnimplementedTodoServiceServer) CreateTodo(context.Context, *CreateTodoRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTodo not implemented")
 }
 func (UnimplementedTodoServiceServer) ListTodos(context.Context, *ListTodosRequest) (*ListTodosResponse, error) {
@@ -124,7 +124,7 @@ func (UnimplementedTodoServiceServer) ListTodos(context.Context, *ListTodosReque
 func (UnimplementedTodoServiceServer) GetTodoById(context.Context, *GetTodoByIdRequest) (*GetTodoByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTodoById not implemented")
 }
-func (UnimplementedTodoServiceServer) UpdateTodo(context.Context, *UpdateTodoRequest) (*UpdateTodoResponse, error) {
+func (UnimplementedTodoServiceServer) UpdateTodo(context.Context, *UpdateTodoRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTodo not implemented")
 }
 func (UnimplementedTodoServiceServer) DeleteTodo(context.Context, *DeleteTodoRequest) (*emptypb.Empty, error) {

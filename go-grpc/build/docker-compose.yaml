@@ -12,6 +12,11 @@ services:
       - ../internal:/go/src/app/internal
     environment:
       - SERVICE_PORT=8080
+      - MYSQL_HOST=my-mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=my_database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
     depends_on:
       - go-grpc-mysql
 

@@ -56,6 +56,23 @@ grpcurl -plaintext localhost:8080 api.Ping.Ping
 grpcurl -plaintext -d '{"title": "title", "body": "body"}' localhost:8080 api.TodoService.CreateTodo
 grpcurl -plaintext -d '{"size": 10, "page": 1}' localhost:8080 api.TodoService.ListTodos
 grpcurl -plaintext -d '{"id": 1}' localhost:8080 api.TodoService.GetTodoById
-grpcurl -plaintext -d '{"id": 1, "title": "title", "body": "body", "status": 2}' localhost:8080 api.TodoService.UpdateTodo
+grpcurl -plaintext -d '{"id": 1, "title": "title_updated", "body": "body_updated", "status": 2}' localhost:8080 api.TodoService.UpdateTodo
 grpcurl -plaintext -d '{"id": 1}' localhost:8080 api.TodoService.DeleteTodo
+```
+
+## Mysql
+
+```sql
+create table todos (
+    id bigint unsigned not null auto_increment primary key,
+    user_id bigint unsigned not null,
+    title varchar(255) not null,
+    body text null,
+    status enum ('todo', 'in_progress', 'done') not null default 'todo',
+    created_at bigint unsigned not null,
+    updated_at bigint unsigned not null,
+    deleted_at bigint unsigned null
+);
+
+create index idx_todos_user_id on todos (user_id);
 ```
