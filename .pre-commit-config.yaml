@@ -12,6 +12,6 @@ repos:
     hooks:
       - id: check-go-format
         name: check-go-format
-        entry: gofmt -w -s
+        entry: gofmt -w -s ./go-grpc
         language: system
         files: \.go$
