@@ -1,0 +1,17 @@
+# @see supported hooks https://pre-commit.com/hooks.html
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: local
+    hooks:
+      - id: check-go-format
+        name: check-go-format
+        entry: gofmt -w -s
+        language: system
+        files: \.go$
